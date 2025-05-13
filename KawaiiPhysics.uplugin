@@ -31,5 +31,11 @@
       "Name": "StructUtils",
       "Enabled": true
     }
+  ],
+  "LocalizationTargets": [
+    {
+      "Name": "KawaiiPhysics",
+      "LoadingPolicy": "Always"
+    }
   ]
 }

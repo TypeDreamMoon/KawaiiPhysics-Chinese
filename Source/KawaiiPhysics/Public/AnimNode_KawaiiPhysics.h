@@ -96,15 +96,15 @@ struct FCollisionLimitBase
 	GENERATED_BODY()
 
 	/** Bone to attach the sphere to */
-	UPROPERTY(EditAnywhere, Category = CollisionLimitBase)
+	UPROPERTY(EditAnywhere, Category = CollisionLimitBase, DisplayName="Driving Bone")
 	FBoneReference DrivingBone;
 
 	/** Offset location from the driving bone */
-	UPROPERTY(EditAnywhere, Category = CollisionLimitBase)
+	UPROPERTY(EditAnywhere, Category = CollisionLimitBase, DisplayName="Offset Location")
 	FVector OffsetLocation = FVector::ZeroVector;
 
 	/** Offset rotation from the driving bone */
-	UPROPERTY(EditAnywhere, Category = CollisionLimitBase, meta = (ClampMin = "-360", ClampMax = "360"))
+	UPROPERTY(EditAnywhere, Category = CollisionLimitBase, meta = (ClampMin = "-360", ClampMax = "360"), DisplayName="Offset Rotation")
 	FRotator OffsetRotation = FRotator::ZeroRotator;
 
 	/** Location of the collision limit */
@@ -120,7 +120,7 @@ struct FCollisionLimitBase
 	bool bEnable = true;
 
 	/** Source type of the collision limit */
-	UPROPERTY(VisibleAnywhere, Category = CollisionLimitBase)
+	UPROPERTY(VisibleAnywhere, Category = CollisionLimitBase, DisplayName="Source Type")
 	ECollisionSourceType SourceType = ECollisionSourceType::AnimNode;
 
 #if WITH_EDITORONLY_DATA
@@ -171,11 +171,11 @@ struct FSphericalLimit : public FCollisionLimitBase
 	}
 
 	/** Radius of the sphere */
-	UPROPERTY(EditAnywhere, Category = SphericalLimit, meta = (ClampMin = "0"))
+	UPROPERTY(EditAnywhere, Category = SphericalLimit, meta = (ClampMin = "0"), DisplayName="Radius")
 	float Radius = 5.0f;
 
 	/** Whether to lock bodies inside or outside of the sphere */
-	UPROPERTY(EditAnywhere, Category = SphericalLimit)
+	UPROPERTY(EditAnywhere, Category = SphericalLimit, DisplayName="Limit Type")
 	ESphericalLimitType LimitType = ESphericalLimitType::Outer;
 
 	/** Assignment operator */
@@ -206,11 +206,11 @@ struct FCapsuleLimit : public FCollisionLimitBase
 	}
 
 	/** Radius of the capsule */
-	UPROPERTY(EditAnywhere, Category = CapsuleLimit, meta = (ClampMin = "0"))
+	UPROPERTY(EditAnywhere, Category = CapsuleLimit, meta = (ClampMin = "0"), DisplayName="Radius")
 	float Radius = 5.0f;
 
 	/** Length of the capsule */
-	UPROPERTY(EditAnywhere, Category = CapsuleLimit, meta = (ClampMin = "0"))
+	UPROPERTY(EditAnywhere, Category = CapsuleLimit, meta = (ClampMin = "0"), DisplayName="Length")
 	float Length = 10.0f;
 
 	/** Assignment operator */
@@ -241,7 +241,7 @@ struct FBoxLimit : public FCollisionLimitBase
 	}
 
 	/** The extent of the box defining the box limit */
-	UPROPERTY(EditAnywhere, Category = BoxLimit)
+	UPROPERTY(EditAnywhere, Category = BoxLimit, DisplayName="Extent")
 	FVector Extent = FVector(5.0f, 5.0f, 5.0f);
 
 	/** Assignment operator */
@@ -295,16 +295,16 @@ struct KAWAIIPHYSICS_API FKawaiiPhysicsRootBoneSetting
 	* 指定ボーンとそれ以下のボーンを制御対象に
 	* Control the specified bone and the bones below it
 	*/
-	UPROPERTY(EditAnywhere, Category = "Bones")
+	UPROPERTY(EditAnywhere, Category = "Bones", DisplayName="Root Bone")
 	FBoneReference RootBone;
 
 	/** 
 	* 指定したボーンとそれ以下のボーンを制御対象から除去
 	* Do NOT control the specified bone and the bones below it
 	*/
-	UPROPERTY(EditAnywhere, Category = "Bones", meta = (EditCondition = "bUseOverrideExcludeBones"))
+	UPROPERTY(EditAnywhere, Category = "Bones", meta = (EditCondition = "bUseOverrideExcludeBones"), DisplayName="Override Exclude Bones")
 	TArray<FBoneReference> OverrideExcludeBones;
-	UPROPERTY(EditAnywhere, Category = "Bones", meta = (InlineEditConditionToggle))
+	UPROPERTY(EditAnywhere, Category = "Bones", meta = (InlineEditConditionToggle), DisplayName="Use Override Exclude Bones")
 	bool bUseOverrideExcludeBones = false;
 };
 
@@ -321,35 +321,35 @@ struct KAWAIIPHYSICS_API FKawaiiPhysicsSettings
 	* 減衰度：揺れの強さを制御。値が小さいほど、加速度を物理挙動に反映
 	* Damping physical behavior. As the value is smaller, the acceleration is more reflected to the physical behavior
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = "0"), category = "KawaiiPhysics")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = "0"), category = "KawaiiPhysics", DisplayName="Damping")
 	float Damping = 0.1f;
 
 	/** 
 	* 剛性度：値が大きいほど、元の形状を維持
 	* Stiffness of physical behavior.As the value is larger, pre-physics shape is more respected
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = "0"), category = "KawaiiPhysics")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = "0"), category = "KawaiiPhysics", DisplayName="Stiffness")
 	float Stiffness = 0.05f;
 
 	/** 
 	* ワールド座標系におけるSkeletal Mesh Componentの移動量の反映度
 	* Influence from movement in world coordinate system of Skeletal Mesh Component
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = "0"), category = "KawaiiPhysics")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = "0"), category = "KawaiiPhysics", DisplayName="World Damping Location")
 	float WorldDampingLocation = 0.8f;
 
 	/** 
 	* ワールド座標系におけるSkeletal Mesh Componentの回転量の反映度
 	* Influence from rotation in world coordinate system of Skeletal Mesh Component
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = "0"), category = "KawaiiPhysics")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = "0"), category = "KawaiiPhysics", DisplayName="World Damping Rotation")
 	float WorldDampingRotation = 0.8f;
 
 	/** 
 	* 各ボーンのコリジョン半径
 	* Radius of bone's collision
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = "0", DisplayName="Collision Radius"),
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = "0", DisplayName="Collision Radius"), DisplayName="Collision Radius",
 		category = "KawaiiPhysics")
 	float Radius = 3.0f;
 
@@ -357,7 +357,7 @@ struct KAWAIIPHYSICS_API FKawaiiPhysicsSettings
 	* 物理挙動による回転制限。適切に設定することで荒ぶりを抑制
 	* Rotational limitations in physical behavior. Setting the value properly can prevent rampage
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = "0"), category = "KawaiiPhysics")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = "0"), category = "KawaiiPhysics", DisplayName="Limit Angle")
 	float LimitAngle = 0.0f;
 };
 
@@ -374,59 +374,59 @@ struct KAWAIIPHYSICS_API FKawaiiPhysicsModifyBone
 	FBoneReference BoneRef;
 
 	/** Index of the bone */
-	UPROPERTY(BlueprintReadOnly, Category = "KawaiiPhysics|ModifyBone")
+	UPROPERTY(BlueprintReadOnly, Category = "KawaiiPhysics|ModifyBone", DisplayName="Index")
 	int32 Index = -1;
 
 	/** Index of the parent bone */
-	UPROPERTY(BlueprintReadOnly, Category = "KawaiiPhysics|ModifyBone")
+	UPROPERTY(BlueprintReadOnly, Category = "KawaiiPhysics|ModifyBone", DisplayName="Parent Index")
 	int32 ParentIndex = -1;
 
 	/** Indices of the child bones */
-	UPROPERTY(BlueprintReadOnly, Category = "KawaiiPhysics|ModifyBone")
+	UPROPERTY(BlueprintReadOnly, Category = "KawaiiPhysics|ModifyBone", DisplayName="Child Indices")
 	TArray<int32> ChildIndices;
 
 	/** Physics settings for the bone */
-	UPROPERTY(BlueprintReadOnly, Category = "KawaiiPhysics|ModifyBone")
+	UPROPERTY(BlueprintReadOnly, Category = "KawaiiPhysics|ModifyBone", DisplayName="Physics Settings")
 	FKawaiiPhysicsSettings PhysicsSettings;
 
 	/** Current location of the bone */
-	UPROPERTY(BlueprintReadWrite, Category = "KawaiiPhysics|ModifyBone")
+	UPROPERTY(BlueprintReadWrite, Category = "KawaiiPhysics|ModifyBone", DisplayName="Location")
 	FVector Location = FVector::ZeroVector;
 
 	/** Previous location of the bone */
-	UPROPERTY(BlueprintReadOnly, Category = "KawaiiPhysics|ModifyBone")
+	UPROPERTY(BlueprintReadOnly, Category = "KawaiiPhysics|ModifyBone", DisplayName="Previous Location")
 	FVector PrevLocation = FVector::ZeroVector;
 
 	/** Previous rotation of the bone */
-	UPROPERTY(BlueprintReadOnly, Category = "KawaiiPhysics|ModifyBone")
+	UPROPERTY(BlueprintReadOnly, Category = "KawaiiPhysics|ModifyBone", DisplayName="Previous Rotation")
 	FQuat PrevRotation = FQuat::Identity;
 
 	/** Pose location of the bone */
-	UPROPERTY(BlueprintReadOnly, Category = "KawaiiPhysics|ModifyBone")
+	UPROPERTY(BlueprintReadOnly, Category = "KawaiiPhysics|ModifyBone", DisplayName="Pose Location")
 	FVector PoseLocation = FVector::ZeroVector;
 
 	/** Pose rotation of the bone */
-	UPROPERTY(BlueprintReadOnly, Category = "KawaiiPhysics|ModifyBone")
+	UPROPERTY(BlueprintReadOnly, Category = "KawaiiPhysics|ModifyBone", DisplayName="Pose Rotation")
 	FQuat PoseRotation = FQuat::Identity;
 
 	/** Pose scale of the bone */
-	UPROPERTY(BlueprintReadOnly, Category = "KawaiiPhysics|ModifyBone")
+	UPROPERTY(BlueprintReadOnly, Category = "KawaiiPhysics|ModifyBone", DisplayName="Pose Scale")
 	FVector PoseScale = FVector::OneVector;
 
 	/** Length from the root bone */
-	UPROPERTY(BlueprintReadOnly, Category = "KawaiiPhysics|ModifyBone")
+	UPROPERTY(BlueprintReadOnly, Category = "KawaiiPhysics|ModifyBone", DisplayName="Length From Root")
 	float LengthFromRoot = 0.0f;
 
 	/** Length rate from the root bone */
-	UPROPERTY(BlueprintReadOnly, Category = "KawaiiPhysics|ModifyBone")
+	UPROPERTY(BlueprintReadOnly, Category = "KawaiiPhysics|ModifyBone", DisplayName="Length Rate From Root")
 	float LengthRateFromRoot = 0.0f;
 
 	/** Flag indicating if this is a dummy bone */
-	UPROPERTY(BlueprintReadOnly, Category = "KawaiiPhysics|ModifyBone")
+	UPROPERTY(BlueprintReadOnly, Category = "KawaiiPhysics|ModifyBone", DisplayName="Dummy")
 	bool bDummy = false;
 
 	/** Flag indicating if simulation should be skipped for this bone */
-	UPROPERTY(BlueprintReadOnly, Category = "KawaiiPhysics|ModifyBone")
+	UPROPERTY(BlueprintReadOnly, Category = "KawaiiPhysics|ModifyBone", DisplayName="Skip Simulate")
 	bool bSkipSimulate = false;
 
 	/**
@@ -497,19 +497,19 @@ struct FModifyBoneConstraint
 	}
 
 	/** The first bone reference in the constraint */
-	UPROPERTY(EditAnywhere, category = "KawaiiPhysics")
+	UPROPERTY(EditAnywhere, category = "KawaiiPhysics", DisplayName="Bone1")
 	FBoneReference Bone1;
 
 	/** The second bone reference in the constraint */
-	UPROPERTY(EditAnywhere, category = "KawaiiPhysics")
+	UPROPERTY(EditAnywhere, category = "KawaiiPhysics", DisplayName="Bone2")
 	FBoneReference Bone2;
 
 	/** Flag to override the compliance type */
-	UPROPERTY(EditAnywhere, category = "KawaiiPhysics", meta=(InlineEditConditionToggle))
+	UPROPERTY(EditAnywhere, category = "KawaiiPhysics", meta=(InlineEditConditionToggle), DisplayName="Override Compliance Type")
 	bool bOverrideCompliance = false;
 
 	/** The compliance type to use if overridden */
-	UPROPERTY(EditAnywhere, category = "KawaiiPhysics", meta=(EditCondition="bOverrideCompliance"))
+	UPROPERTY(EditAnywhere, category = "KawaiiPhysics", meta=(EditCondition="bOverrideCompliance"), DisplayName="Compliance Type")
 	EXPBDComplianceType ComplianceType = EXPBDComplianceType::Leather;
 
 	/** Index of the first modify bone */
@@ -568,42 +568,42 @@ struct KAWAIIPHYSICS_API FAnimNode_KawaiiPhysics : public FAnimNode_SkeletalCont
 	* 指定ボーンとそれ以下のボーンを制御対象に
 	* Control the specified bone and the bones below it
 	*/
-	UPROPERTY(EditAnywhere, Category = "Bones")
+	UPROPERTY(EditAnywhere, Category = "Bones", DisplayName="Root Bone")
 	FBoneReference RootBone;
 
 	/** 
 	* 指定したボーンとそれ以下のボーンを制御対象から除去
 	* Do NOT control the specified bone and the bones below it
 	*/
-	UPROPERTY(EditAnywhere, Category = "Bones")
+	UPROPERTY(EditAnywhere, Category = "Bones", DisplayName="Exclude Bones")
 	TArray<FBoneReference> ExcludeBones;
 
 	/** 
 	* 指定ボーンとそれ以下のボーンを制御対象に(追加用)
 	* Control the specified bone and the bones below it (For Addition)
 	*/
-	UPROPERTY(EditAnywhere, Category = "Bones")
+	UPROPERTY(EditAnywhere, Category = "Bones", DisplayName="Additional Root Bone")
 	TArray<FKawaiiPhysicsRootBoneSetting> AdditionalRootBones;
 
 	/** 
 	* 0より大きい場合は、制御ボーンの末端にダミーボーンを追加。ダミーボーンを追加することで、末端のボーンの物理制御を改善
 	* Add a dummy bone to the end bone if it's above 0. It affects end bone rotation. 
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bones", meta = (PinHiddenByDefault, ClampMin = "0"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bones", meta = (PinHiddenByDefault, ClampMin = "0"), DisplayName="Dummy Bone Length")
 	float DummyBoneLength = 0.0f;
 
 	/** 
 	* ボーンの前方。物理制御やダミーボーンの配置位置に影響
 	* Bone forward direction. Affects the placement of physical controls and dummy bones
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bones", meta = (PinHiddenByDefault))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bones", meta = (PinHiddenByDefault), DisplayName="Bone Forward Axis")
 	EBoneForwardAxis BoneForwardAxis = EBoneForwardAxis::X_Positive;
 
 	/** 
 	* 物理制御の基本設定
 	* Basic physics settings
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Physics Settings",
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Physics Settings", DisplayName="Physics Settings",
 		meta = (PinHiddenByDefault, DisplayPriority=0))
 	FKawaiiPhysicsSettings PhysicsSettings;
 
@@ -611,9 +611,9 @@ struct KAWAIIPHYSICS_API FAnimNode_KawaiiPhysics : public FAnimNode_SkeletalCont
 	* ターゲットとなるフレームレート
 	* Target Frame Rate
 	*/
-	UPROPERTY(EditAnywhere, Category = "Physics Settings", meta = (EditCondition = "OverrideTargetFramerate"))
+	UPROPERTY(EditAnywhere, Category = "Physics Settings", meta = (EditCondition = "OverrideTargetFramerate"), DisplayName="Target Frame Rate")
 	int32 TargetFramerate = 60;
-	UPROPERTY(EditAnywhere, Category = "Physics Settings", meta = (InlineEditConditionToggle))
+	UPROPERTY(EditAnywhere, Category = "Physics Settings", meta = (InlineEditConditionToggle), DisplayName="Override Target Frame Rate")
 	bool OverrideTargetFramerate = false;
 
 	/** 
@@ -621,17 +621,17 @@ struct KAWAIIPHYSICS_API FAnimNode_KawaiiPhysics : public FAnimNode_SkeletalCont
 	* Number of times physics has been idle. Used when you want to start/display after physics processing has settled down
 	*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Physics Settings",
-		meta = (PinHiddenByDefault, EditCondition="bNeedWarmUp", ClampMin = "0"))
+		meta = (PinHiddenByDefault, EditCondition="bNeedWarmUp", ClampMin = "0"), DisplayName="Warm Up Frames")
 	int32 WarmUpFrames = 0;
 	/** 
 	* ResetDynamics時に物理の空回しを行うフラグ
 	* Flags to use warmup physics when ResetDynamics
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Physics Settings",
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Physics Settings", DisplayName="Use Warm Up When Reset Dynamics",
 		meta = (PinHiddenByDefault, EditCondition="bNeedWarmUp"))
 	bool bUseWarmUpWhenResetDynamics = true;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Physics Settings",
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Physics Settings", DisplayName="Need Warm Up",
 		meta = (PinHiddenByDefault, InlineEditConditionToggle))
 	bool bNeedWarmUp = false;
 
@@ -639,21 +639,21 @@ struct KAWAIIPHYSICS_API FAnimNode_KawaiiPhysics : public FAnimNode_SkeletalCont
 	* 1フレームにおけるSkeletalMeshComponentの移動量が設定値を超えた場合、その移動量を物理制御に反映しない
 	* If the amount of movement of a SkeletalMeshComponent in one frame exceeds the set value, that amount of movement will not be reflected in the physics control.
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Physics Settings", meta = (PinHiddenByDefault))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Physics Settings", meta = (PinHiddenByDefault), DisplayName="Teleport Distance Threshold")
 	float TeleportDistanceThreshold = 300.0f;
 
 	/** 
 	* 1フレームにおけるSkeletalMeshComponentの回転量が設定値を超えた場合、その回転量を物理制御に反映しない
 	* If the rotation amount of SkeletalMeshComponent in one frame exceeds the set value, the rotation amount will not be reflected in the physics control.
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Physics Settings", meta = (PinHiddenByDefault))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Physics Settings", meta = (PinHiddenByDefault), DisplayName="Teleport Rotation Threshold")
 	float TeleportRotationThreshold = 10.0f;
 
 	/** 
 	* 指定した軸に応じた平面上に各ボーンを固定
 	* Fix the bone on the specified plane 
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Physics Settings", meta = (PinHiddenByDefault))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Physics Settings", meta = (PinHiddenByDefault), DisplayName="Planar Constraint")
 	EPlanarConstraint PlanarConstraint = EPlanarConstraint::None;
 
 	/** 
@@ -662,7 +662,7 @@ struct KAWAIIPHYSICS_API FAnimNode_KawaiiPhysics : public FAnimNode_SkeletalCont
 	* Flag to update the physics parameters of each bone every frame.
 	* Disabling this will slightly improve performance, but it will make it impossible to change physics parameters during execution.
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Physics Settings", AdvancedDisplay,
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Physics Settings", AdvancedDisplay, DisplayName="Update Physics Settings In Game",
 		meta = (PinHiddenByDefault))
 	bool bUpdatePhysicsSettingsInGame = true;
 
@@ -670,7 +670,7 @@ struct KAWAIIPHYSICS_API FAnimNode_KawaiiPhysics : public FAnimNode_SkeletalCont
 	* 制御対象のボーンが見つからない場合にTransformをリセットするフラグ。基本的には無効を推奨
 	* Flag to reset Transform when the controlled bone is not found. It is generally recommended to disable this.
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Physics Settings", AdvancedDisplay,
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Physics Settings", AdvancedDisplay, DisplayName="Reset Bone Transform When Bone Not Found",
 		meta = (PinHiddenByDefault))
 	bool ResetBoneTransformWhenBoneNotFound = false;
 
@@ -751,64 +751,64 @@ struct KAWAIIPHYSICS_API FAnimNode_KawaiiPhysics : public FAnimNode_SkeletalCont
 	* コリジョン（球）
 	* Spherical Collision
 	*/
-	UPROPERTY(EditAnywhere, Category = "Limits")
+	UPROPERTY(EditAnywhere, Category = "Limits", DisplayName="Spherical Limits")
 	TArray<FSphericalLimit> SphericalLimits;
 	/** 
 	* コリジョン（カプセル）
 	* Capsule Collision
 	*/
-	UPROPERTY(EditAnywhere, Category = "Limits")
+	UPROPERTY(EditAnywhere, Category = "Limits", DisplayName="Capsule Limits")
 	TArray<FCapsuleLimit> CapsuleLimits;
 	/** 
 	* コリジョン（ボックス）
 	* Box Collision
 	*/
-	UPROPERTY(EditAnywhere, Category = "Limits")
+	UPROPERTY(EditAnywhere, Category = "Limits", DisplayName="Box Limits")
 	TArray<FBoxLimit> BoxLimits;
 	/** 
 	* コリジョン（平面）
 	* Planar Collision
 	*/
-	UPROPERTY(EditAnywhere, Category = "Limits")
+	UPROPERTY(EditAnywhere, Category = "Limits", DisplayName="Planar Limits")
 	TArray<FPlanarLimit> PlanarLimits;
 
 	/** 
 	* コリジョン設定（DataAsset版）。別AnimNode・ABPで設定を流用したい場合はこちらを推奨
 	* Collision settings (DataAsset version). This is recommended if you want to reuse the settings for another AnimNode or ABP.
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Limits", meta = (PinHiddenByDefault))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Limits", meta = (PinHiddenByDefault), DisplayName = "Limits DataAsset")
 	TObjectPtr<UKawaiiPhysicsLimitsDataAsset> LimitsDataAsset = nullptr;
 
 	/** 
 	* コリジョン設定（PhyiscsAsset版）。別AnimNode・ABPで設定を流用したい場合はこちらを推奨
 	* Collision settings (PhyiscsAsset版 version). This is recommended if you want to reuse the settings for another AnimNode or ABP.
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Limits", meta = (PinHiddenByDefault))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Limits", meta = (PinHiddenByDefault), DisplayName = "Physics Asset For Limits")
 	TObjectPtr<UPhysicsAsset> PhysicsAssetForLimits = nullptr;
 
 	/** 
 	* コリジョン設定（DataAsset版）における球コリジョンのプレビュー
 	* Preview of sphere collision in collision settings (DataAsset version)
 	*/
-	UPROPERTY(VisibleAnywhere, AdvancedDisplay, Category = "Limits")
+	UPROPERTY(VisibleAnywhere, AdvancedDisplay, Category = "Limits", DisplayName="Spherical Limits DataAsset")
 	TArray<FSphericalLimit> SphericalLimitsData;
 	/** 
 	* コリジョン設定（DataAsset版）におけるカプセルコリジョンのプレビュー
 	* Preview of capsule collision in collision settings (DataAsset version)
 	*/
-	UPROPERTY(VisibleAnywhere, AdvancedDisplay, Category = "Limits")
+	UPROPERTY(VisibleAnywhere, AdvancedDisplay, Category = "Limits", DisplayName="Capsule Limits DataAsset")
 	TArray<FCapsuleLimit> CapsuleLimitsData;
 	/** 
 	* コリジョン設定（DataAsset版）におけるボックスコリジョンのプレビュー
 	* Preview of box collision in collision settings (DataAsset version)
 	*/
-	UPROPERTY(VisibleAnywhere, AdvancedDisplay, Category = "Limits")
+	UPROPERTY(VisibleAnywhere, AdvancedDisplay, Category = "Limits", DisplayName="Box Limits DataAsset")
 	TArray<FBoxLimit> BoxLimitsData;
 	/** 
 	* コリジョン設定（DataAsset版）における平面コリジョンのプレビュー
 	* Preview of planar collision in collision settings (DataAsset version)
 	*/
-	UPROPERTY(VisibleAnywhere, AdvancedDisplay, Category = "Limits")
+	UPROPERTY(VisibleAnywhere, AdvancedDisplay, Category = "Limits", DisplayName="Planar Limits DataAsset")
 	TArray<FPlanarLimit> PlanarLimitsData;
 
 	/** 
@@ -816,28 +816,28 @@ struct KAWAIIPHYSICS_API FAnimNode_KawaiiPhysics : public FAnimNode_SkeletalCont
 	* Stiffness type to use in Bone Constraint
 	* http://blog.mmacklin.com/2016/10/12/xpbd-slides-and-stiffness/
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bone Constraint (Experimental)",
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bone Constraint (Experimental)", DisplayName="Global Compliance Type",
 		meta = (PinHiddenByDefault))
 	EXPBDComplianceType BoneConstraintGlobalComplianceType = EXPBDComplianceType::Leather;
 	/** 
 	* Bone Constraintの処理回数（コリジョン処理前）
 	* Number of Bone Constraints processed before collision processing
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bone Constraint (Experimental)",
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bone Constraint (Experimental)", DisplayName="Iteration Count Before Collision",
 		meta = (PinHiddenByDefault))
 	int32 BoneConstraintIterationCountBeforeCollision = 1;
 	/** 
 	* Bone Constraintの処理回数（コリジョン処理後）
 	* Number of Bone Constraints processed after collision processing
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bone Constraint (Experimental)",
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bone Constraint (Experimental)", DisplayName="Iteration Count After Collision",
 		meta = (PinHiddenByDefault))
 	int32 BoneConstraintIterationCountAfterCollision = 1;
 	/** 
 	* 末端ボーンをBoneConstraint処理の対象にした場合、自動的にダミーボーンも処理対象にするフラグ
 	* Flag to automatically processes dummy bones when the end bones are subject to BoneConstraint processing.
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bone Constraint (Experimental)",
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bone Constraint (Experimental)", DisplayName="Auto Add Child Dummy Bone Constraint",
 		meta = (PinHiddenByDefault))
 	bool bAutoAddChildDummyBoneConstraint = true;
 
@@ -845,14 +845,14 @@ struct KAWAIIPHYSICS_API FAnimNode_KawaiiPhysics : public FAnimNode_SkeletalCont
 	* BoneConstraint処理の対象となるボーンのペアを設定。スカートのように、ボーン間の距離を維持したい場合に使用
 	* Sets the bone pair to be processed by BoneConstraint. Used when you want to maintain the distance between bones, such as a skirt.
 	*/
-	UPROPERTY(EditAnywhere, Category = "Bone Constraint (Experimental)", meta=(TitleProperty="{Bone1} - {Bone2}"))
+	UPROPERTY(EditAnywhere, Category = "Bone Constraint (Experimental)", meta=(TitleProperty="{Bone1} - {Bone2}"), DisplayName="Bone Constraints")
 	TArray<FModifyBoneConstraint> BoneConstraints;
 
 	/** 
 	* BoneConstraint処理の対象となるボーンのペアを設定 (DataAsset版）。別AnimNode・ABPで設定を流用したい場合はこちらを推奨
 	* Set the bone pairs to be processed by BoneConstraint (DataAsset version). If you want to reuse the settings for another AnimNode or another ABP, this is recommended.
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bone Constraint (Experimental)",
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bone Constraint (Experimental)", DisplayName="Bone Constraints DataAsset",
 		meta = (PinHiddenByDefault))
 	TObjectPtr<UKawaiiPhysicsBoneConstraintsDataAsset> BoneConstraintsDataAsset;
 
@@ -860,7 +860,7 @@ struct KAWAIIPHYSICS_API FAnimNode_KawaiiPhysics : public FAnimNode_SkeletalCont
 	* BoneConstraint処理の対象となるボーンのペアのプレビュー
 	* Preview of bone pairs that will be processed by BoneConstraint
 	*/
-	UPROPERTY(VisibleAnywhere, Category = "Bone Constraint (Experimental)", AdvancedDisplay,
+	UPROPERTY(VisibleAnywhere, Category = "Bone Constraint (Experimental)", AdvancedDisplay, DisplayName="Bone Constraints DataAsset",
 		meta=(TitleProperty="{Bone1} - {Bone2}"))
 	TArray<FModifyBoneConstraint> BoneConstraintsData;
 	UPROPERTY()
@@ -874,7 +874,7 @@ struct KAWAIIPHYSICS_API FAnimNode_KawaiiPhysics : public FAnimNode_SkeletalCont
 		meta = (PinHiddenByDefault, DisplayName="External Force"))
 	FVector Gravity = FVector::ZeroVector;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ExternalForce",
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ExternalForce", DisplayName="Enable Wind",
 		meta = (PinHiddenByDefault, InlineEditConditionToggle))
 	bool bEnableWind = false;
 
@@ -882,7 +882,7 @@ struct KAWAIIPHYSICS_API FAnimNode_KawaiiPhysics : public FAnimNode_SkeletalCont
 	* WindDirectionalSourceによる風の影響度。ClothやSpeedTreeとの併用目的
 	* Influence of wind by WindDirectionalSource. For use with Cloth and SpeedTree
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ExternalForce", meta = (EditCondition = "bEnableWind"),
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ExternalForce", meta = (EditCondition = "bEnableWind"), DisplayName="Wind Scale",
 		meta = (PinHiddenByDefault))
 	float WindScale = 1.0f;
 
@@ -890,7 +890,7 @@ struct KAWAIIPHYSICS_API FAnimNode_KawaiiPhysics : public FAnimNode_SkeletalCont
 	* 外力のプリセット。C++で独自のプリセットを追加可能(Instanced Struct)
 	* External force presets. You can add your own presets in C++.
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ExternalForce",
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ExternalForce", DisplayName="External Force Presets",
 		meta = (BaseStruct = "/Script/KawaiiPhysics.KawaiiPhysics_ExternalForce", ExcludeBaseStruct))
 	TArray<FInstancedStruct> ExternalForces;
 
@@ -909,11 +909,11 @@ struct KAWAIIPHYSICS_API FAnimNode_KawaiiPhysics : public FAnimNode_SkeletalCont
 	* レベル上の各コリジョンとの判定を行うフラグ。有効にすると物理処理の負荷が大幅に上がります
 	* Flag for collision detection with each collision on the level. Enabling this will significantly increase the load of physics processing.
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "World Collision", meta = (PinHiddenByDefault))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "World Collision", meta = (PinHiddenByDefault), DisplayName="Allow World Collision")
 	bool bAllowWorldCollision = false;
 
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "World Collision",
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "World Collision", DisplayName="Override Collision Params",
 		meta = (PinHiddenByDefault, InlineEditConditionToggle))
 	bool bOverrideCollisionParams = false;
 	/** 
@@ -929,7 +929,7 @@ struct KAWAIIPHYSICS_API FAnimNode_KawaiiPhysics : public FAnimNode_SkeletalCont
 	* WorldCollisionにて、SkeletalMeshComponentが持つコリジョン(PhysicsAsset)を無視するフラグ
 	* In WorldCollision, Flag to ignore collisions for SkeletalMeshComponent(PhysicsAsset) in WorldCollision
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "World Collision",
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "World Collision", DisplayName="Ignore Self Component",
 		meta = (PinHiddenByDefault, EditCondition = "bAllowWorldCollision"))
 	bool bIgnoreSelfComponent = true;
 
@@ -937,27 +937,27 @@ struct KAWAIIPHYSICS_API FAnimNode_KawaiiPhysics : public FAnimNode_SkeletalCont
 	* WorldCollisionにて、SkeletalMeshComponentが持つコリジョン(PhysicsAsset)を無視する設定（骨）
 	* In WorldCollision, set to ignore collision (PhysicsAsset) of SkeletalMeshComponent using bone
 	*/
-	UPROPERTY(EditAnywhere, Category = "World Collision", meta = (EditCondition = "!bIgnoreSelfComponent"))
+	UPROPERTY(EditAnywhere, Category = "World Collision", meta = (EditCondition = "!bIgnoreSelfComponent"), DisplayName="Ignore Bones")
 	TArray<FBoneReference> IgnoreBones;
 
 	/** 
 	* WorldCollisionにて、SkeletalMeshComponentが持つコリジョン(PhysicsAsset)を無視する設定（骨名のプリフィックス）
 	* In WorldCollision, set to ignore collision (PhysicsAsset) of SkeletalMeshComponent using bone name prefix
 	*/
-	UPROPERTY(EditAnywhere, Category = "World Collision", meta = (EditCondition = "!bIgnoreSelfComponent"))
+	UPROPERTY(EditAnywhere, Category = "World Collision", meta = (EditCondition = "!bIgnoreSelfComponent"), DisplayName="Ignore Bone Name Prefix")
 	TArray<FName> IgnoreBoneNamePrefix;
 
 	/** 
 	* ExternalForceなどで使用するフィルタリング用タグ
 	* Tag for filtering of ExternalForce etc
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tag")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tag", DisplayName="KawaiiPhysics Tag")
 	FGameplayTag KawaiiPhysicsTag;
 
-	UPROPERTY(BlueprintReadWrite, Category = "Bones")
+	UPROPERTY(BlueprintReadWrite, Category = "Bones", DisplayName="Modify Bones")
 	TArray<FKawaiiPhysicsModifyBone> ModifyBones;
 
-	UPROPERTY(BlueprintReadOnly, Category = "KawaiiPhysics")
+	UPROPERTY(BlueprintReadOnly, Category = "KawaiiPhysics", DisplayName="DeltaTime")
 	float DeltaTime;
 
 protected:

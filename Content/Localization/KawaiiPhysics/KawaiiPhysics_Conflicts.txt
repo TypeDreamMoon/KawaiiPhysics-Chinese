@@ -1,0 +1,8 @@
+KawaiiPhysics - AnimGraphNode_KawaiiPhysics_ListTitle 
+	/Engine/Binaries/Win64/Plugins/Animation/KawaiiPhysics-Chinese/Source/KawaiiPhysicsEd/Private/AnimGraphNode_KawaiiPhysics.cpp(60) - "{ControllerDescription} - Root: {RootBoneName}" 
+	/Engine/Binaries/Win64/Plugins/Animation/KawaiiPhysics-Chinese/Source/KawaiiPhysicsEd/Private/AnimGraphNode_KawaiiPhysics.cpp(57) - "{ControllerDescription} - Root: {RootBoneName} - Tag: {Tag}" 
+
+KawaiiPhysics - AnimGraphNode_KawaiiPhysics_Title 
+	/Engine/Binaries/Win64/Plugins/Animation/KawaiiPhysics-Chinese/Source/KawaiiPhysicsEd/Private/AnimGraphNode_KawaiiPhysics.cpp(72) - "{ControllerDescription}\nRoot: {RootBoneName}" 
+	/Engine/Binaries/Win64/Plugins/Animation/KawaiiPhysics-Chinese/Source/KawaiiPhysicsEd/Private/AnimGraphNode_KawaiiPhysics.cpp(69) - "{ControllerDescription}\nRoot: {RootBoneName}\nTag:  {Tag} " 
+
