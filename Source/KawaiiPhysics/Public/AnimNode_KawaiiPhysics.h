@@ -10,6 +10,7 @@
 #include "BoneControllers/AnimNode_AnimDynamics.h"
 #include "BoneControllers/AnimNode_SkeletalControlBase.h"
 
+#include "Runtime/Launch/Resources/Version.h"
 #if	ENGINE_MAJOR_VERSION >= 5 && ENGINE_MINOR_VERSION >= 5
 #include "StructUtils/InstancedStruct.h"
 #else
@@ -436,7 +437,7 @@ struct KAWAIIPHYSICS_API FKawaiiPhysicsModifyBone
 	 * @param ResetBoneTransformWhenBoneNotFound Flag to reset bone transform when bone is not found.
 	 */
 	void UpdatePoseTransform(const FBoneContainer& BoneContainer, FCSPose<FCompactPose>& Pose,
-	                         bool ResetBoneTransformWhenBoneNotFound)
+	                        bool ResetBoneTransformWhenBoneNotFound, bool bUseCustomBoneSpaceToSimulate = false, FTransform ComponnetSpaceToCustomBoneSpace = FTransform::Identity)
 	{
 		const auto CompactPoseIndex = BoneRef.GetCompactPoseIndex(BoneContainer);
 		if (CompactPoseIndex < 0)
@@ -451,7 +452,8 @@ struct KAWAIIPHYSICS_API FKawaiiPhysicsModifyBone
 			return;
 		}
 
-		const auto ComponentSpaceTransform = Pose.GetComponentSpaceTransform(CompactPoseIndex);
+		auto ComponentSpaceTransform = Pose.GetComponentSpaceTransform(CompactPoseIndex);
+		ComponentSpaceTransform = bUseCustomBoneSpaceToSimulate ? ComponentSpaceTransform * ComponnetSpaceToCustomBoneSpace : ComponentSpaceTransform;
 		PoseLocation = ComponentSpaceTransform.GetLocation();
 		PoseRotation = ComponentSpaceTransform.GetRotation();
 		PoseScale = ComponentSpaceTransform.GetScale3D();
@@ -1309,4 +1311,19 @@ protected:
 #if ENABLE_ANIM_DEBUG
 	void AnimDrawDebug(const FComponentSpacePoseContext& Output);
 #endif
+
+public:
+	// use custom bone => World space to Simulate
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space")
+	bool bUseCustomBoneWorldSpace2Simulate = true;
+
+	// bone Space
+	UPROPERTY(EditAnywhere, Category = "Space")
+	FBoneReference BoneSpaceRefrence;
+
+	UPROPERTY(Transient)
+	FTransform CustomBoneSpace2ComponentSpace;
+	
+	UPROPERTY(Transient)
+	FTransform ComponentSpace2CustomBoneSpace;
 };
